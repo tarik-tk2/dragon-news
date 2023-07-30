@@ -5,6 +5,7 @@ import About from "../pages/About/About";
 import Career from "../pages/Career/Career";
 import Category from "../shared/LeftNav/CategoryList/Category";
 import NewsLayout from "../layout/NewsLayout";
+import NewsDetails from "../pages/Home/NewsCard/NewsDetails/NewsDetails";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -12,7 +13,8 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <Home></Home>,
+        element: <Category />,
+        loader: () => fetch(`http://localhost:3000/news`),
       },
       {
         path: "/about",
@@ -23,11 +25,27 @@ const router = createBrowserRouter([
         element: <Career />,
       },
       {
-        path: "news/category/:id",
+        path: "/category/:id",
         element: <Category></Category>,
         loader: ({ params }) => {
-          return fetch(`http://localhost:3000/news/category/${params.id}`);
+          if (parseInt(params.id) === 0) {
+            return fetch(`http://localhost:3000/news`);
+          } else {
+            return fetch(`http://localhost:3000/category/${params.id}`);
+          }
         },
+      },
+    ],
+  },
+  {
+    path: "/news",
+    element: <NewsLayout></NewsLayout>,
+    children: [
+      {
+        path: ":id",
+        element: <NewsDetails></NewsDetails>,
+        loader: ({ params }) =>
+          fetch(`http://localhost:3000/news/${params.id}`),
       },
     ],
   },
