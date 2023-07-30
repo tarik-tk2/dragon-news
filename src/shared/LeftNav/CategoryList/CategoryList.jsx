@@ -5,7 +5,7 @@ const CategoryList = (props) => {
     const { name,id}=props.category
     return (
         <div>
-            <Link to={`/category/${id}`}>{ name}</Link>
+            <Link to={`/news/category/${id}`} className=' text-decoration-none'>{ name}</Link>
         </div>
     );
 };

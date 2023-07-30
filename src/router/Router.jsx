@@ -3,6 +3,8 @@ import MainLayout from "../layout/MainLayout";
 import Home from "../pages/Home/Home/Home";
 import About from "../pages/About/About";
 import Career from "../pages/Career/Career";
+import Category from "../shared/LeftNav/CategoryList/Category";
+import NewsLayout from "../layout/NewsLayout";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -14,11 +16,19 @@ const router = createBrowserRouter([
       },
       {
         path: "/about",
-        element:<About/>
-      }, {
+        element: <About />,
+      },
+      {
         path: "/career",
-        element:<Career/>
-      }
+        element: <Career />,
+      },
+      {
+        path: "news/category/:id",
+        element: <Category></Category>,
+        loader: ({ params }) => {
+          return fetch(`http://localhost:3000/news/category/${params.id}`);
+        },
+      },
     ],
   },
 ]);
