@@ -18,7 +18,7 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <Category />,
-        loader: () => fetch(`http://localhost:3000/news`),
+        loader: () => fetch(`https://dragon-server-eight.vercel.app/news`),
       },
       {
         path: "/about",
@@ -33,9 +33,11 @@ const router = createBrowserRouter([
         element: <Category></Category>,
         loader: ({ params }) => {
           if (parseInt(params.id) === 0) {
-            return fetch(`http://localhost:3000/news`);
+            return fetch(`https://dragon-server-eight.vercel.app/news`);
           } else {
-            return fetch(`http://localhost:3000/category/${params.id}`);
+            return fetch(
+              `https://dragon-server-eight.vercel.app/category/${params.id}`
+            );
           }
         },
       },
@@ -53,7 +55,7 @@ const router = createBrowserRouter([
           </PrivateRoute>
         ),
         loader: ({ params }) =>
-          fetch(`http://localhost:3000/news/${params.id}`),
+          fetch(`https://dragon-server-eight.vercel.app/news/${params.id}`),
       },
     ],
   },

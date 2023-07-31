@@ -9,15 +9,15 @@ const AuthProvider = ({ children }) => {
   const [loading,setLoading]=useState(true);
   const auth=getAuth(app)
   const handleSignUp = (email,password) => {
- setLoading(true)
+//  setLoading(true)
       return createUserWithEmailAndPassword(auth, email, password);
   }
   const handleSignIn = (email, password) => {
-    setLoading(true)
+    // setLoading(true)
   return signInWithEmailAndPassword(auth, email, password);
   }
   const handleSignOut = () => {
-      setLoading(true)
+      // setLoading(true)
       return signOut(auth);
   };
   //observer
