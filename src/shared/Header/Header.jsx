@@ -9,12 +9,14 @@ import { LiaWeightHangingSolid } from "./../../../node_modules/react-icons/lia/i
 import { AuthContext } from "../../provider/AuthProvider";
 
 const Header = () => {
-  const { user, handleSignOut } = useContext(AuthContext);
+  const { user, handleSignOut,loading } = useContext(AuthContext);
   const handleLogOut = () => {
     handleSignOut()
     
   }
-  console.log(user)
+  if (loading) {
+    return null
+  }
   return (
     <Container className="mb-4">
       <div className="d-flex  align-items-center flex-column">
