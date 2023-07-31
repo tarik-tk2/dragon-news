@@ -1,13 +1,20 @@
-import React from "react";
-import { Button, Container, Nav, Navbar } from "react-bootstrap";
+import React, { useContext } from "react";
+import { Button, Container, Image, Nav, Navbar } from "react-bootstrap";
 import logo from "../../logo/logo/logo.png";
 import moment from "moment";
 import Marquee from "react-fast-marquee";
 import { Link } from "react-router-dom";
 import { FaCircleUser } from "react-icons/fa6";
 import { LiaWeightHangingSolid } from "./../../../node_modules/react-icons/lia/index.esm";
+import { AuthContext } from "../../provider/AuthProvider";
 
 const Header = () => {
+  const { user, handleSignOut } = useContext(AuthContext);
+  const handleLogOut = () => {
+    handleSignOut()
+    
+  }
+  console.log(user)
   return (
     <Container className="mb-4">
       <div className="d-flex  align-items-center flex-column">
@@ -51,12 +58,26 @@ const Header = () => {
           </div>
           <div>
             <Link className="me-2" t0={"some"}>
-              <FaCircleUser className=" fs-3  bg-light" />
+              {user ? (
+                <Image src={user?.photoURL} style={{width:'40px',height:'40px',borderRadius:'50%'}}></Image>
+              ) : (
+                <FaCircleUser className=" fs-3  bg-light" />
+              )}
             </Link>
-            <Link className="ms-3" to={"some"}>
-              <Button variant="dark" className="rounded-0 border-0 px-4">
-                Login
-              </Button>
+            <Link className="ms-3" to="/login/signin">
+              {user ? (
+                <Button
+                  variant="dark"
+                  className="rounded-0 border-0 px-4"
+                  onClick={() => handleLogOut()}
+                >
+                  LogOut
+                </Button>
+              ) : (
+                <Button variant="dark" className="rounded-0 border-0 px-4">
+                  Login
+                </Button>
+              )}
             </Link>
           </div>
         </Container>

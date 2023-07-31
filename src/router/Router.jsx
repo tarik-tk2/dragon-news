@@ -6,6 +6,10 @@ import Career from "../pages/Career/Career";
 import Category from "../shared/LeftNav/CategoryList/Category";
 import NewsLayout from "../layout/NewsLayout";
 import NewsDetails from "../pages/Home/NewsCard/NewsDetails/NewsDetails";
+import LoginLayout from "../layout/LoginLayout";
+import Login from "../Login/Login";
+import Registration from "../Login/Registration";
+import PrivateRoute from "./PrivateRoute";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -43,9 +47,27 @@ const router = createBrowserRouter([
     children: [
       {
         path: ":id",
-        element: <NewsDetails></NewsDetails>,
+        element: (
+          <PrivateRoute>
+            <NewsDetails></NewsDetails>
+          </PrivateRoute>
+        ),
         loader: ({ params }) =>
           fetch(`http://localhost:3000/news/${params.id}`),
+      },
+    ],
+  },
+  {
+    path: "/login",
+    element: <LoginLayout></LoginLayout>,
+    children: [
+      {
+        path: "/login/signin",
+        element: <Login></Login>,
+      },
+      {
+        path: "/login/signup",
+        element: <Registration></Registration>,
       },
     ],
   },
